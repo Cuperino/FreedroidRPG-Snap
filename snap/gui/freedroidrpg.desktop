@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Freedroid RPG
+GenericName=Freedroid RPG
+Comment=A futuristic immersive RPG about fighting bots
+TryExec=freedroidRPG
+Exec=freedroidRPG
+Icon=${SNAP}/icons/paraicon.png
+Categories=Game;RolePlaying;
+# TRANSLATORS: Search terms to find this application. Do NOT translate or
+# localize the semicolons! The list MUST also end with a semicolon!
+Keywords=game;role playing;RPG;logic;isometric;futuristic;

@@ -1,0 +1,107 @@
+name: freedroidrpg # you probably want to 'snapcraft register <name>'
+base: core20 # the base snap is the execution environment for this snap
+version: '1.0rc2' # just for humans, typically '1.2+git' or '1.3.2'
+summary: A futuristic immersive RPG about fighting bots # 79 char long summary
+description: |
+  The game tells the story of a world destroyed by a conflict between robots and their human masters. Play as Tux in a quest to save the world from the murderous rebel bots who know no mercy. You get to choose which path you wish to follow, and freedom of choice is everywhere in the game.
+
+  FreedroidRPG features a real time combat system with melee and ranged weapons, fairly similar to the proprietary game Diablo. There is an innovative system of programs that can be run in order to take control of enemy robots, alter their behavior, or improve one's characteristics. You can use over 50 different kinds of items and fight countless enemies on your way to your destiny. An advanced dialog system provides story background and immersive role playing situations.
+
+  The game is complete, fully playable, and can provide about 10 hours of fun. It is still being actively developed, and help is welcome in many areas. People having - or trying to acquire - programming, map editing, or writing skills will find FreedroidRPG to be an exciting, fast-moving project in which they can fully express their creativity.
+license: GPL-2.0
+
+grade: stable # must be 'stable' to release into candidate/stable channels
+confinement: strict # use 'strict' once you have the right plugs and slots
+icon: snap/gui/paraicon.png
+
+parts:
+  freedroidrpg:
+    plugin: autotools
+    source-type: tar
+    source: "freedroidRPG-1.0rc2.tar.gz"
+    # autotools-configure-parameters: 
+    #   - "--prefix=/share/freedroidrpg"
+    # build-environment:
+    #   - datarootdir="$SNAP/share/freedroidrpg/data/"
+    build-packages:
+      - g++
+      - make
+      - libjpeg-dev 
+      - libasound2-dev
+      - libslang2-dev
+      - libcaca-dev
+      - libsdl1.2-dev
+      - libsdl-image1.2-dev
+      - libsdl-gfx1.2-dev
+      - libsdl-mixer1.2-dev
+      - libsdl-ttf2.0-dev
+      - libjbig-dev
+      - liblzma-dev
+      - libtiff-dev
+      - libwebp-dev
+      - libglew-dev
+      - libogg-dev
+      - libflac-dev
+      - libmad0-dev
+      - libmikmod-dev
+      - libvorbis-dev
+      - liblua5.2-dev
+      - pkg-config
+      - gettext
+      - autopoint
+      # - libjpeg-turbo8-dev
+    stage-packages:
+      - libjpeg-turbo8
+      - libasound2
+      - libslang2
+      - libcaca0
+      - libsdl1.2debian
+      - libjbig0
+      - liblzma5
+      - libtiffxx5
+      - libtiff5
+      - libwebp6
+      - libsdl-image1.2
+      - libsdl-mixer1.2
+      - libsdl-gfx1.2-5
+      - libglew2.1
+      - libogg0
+      - libflac8
+      - libmad0
+      - libmikmod-config
+      - libvorbis0a
+      - libglu1-mesa
+      - freeglut3
+      - libc6
+    override-build: |
+      # datarootdir="$SNAP_DATA"
+      snapcraftctl build
+#      datarootdir="$SNAP/share/freedroidrpg/data/"
+#      datarootdir="$SNAP_DATA/share/freedroidrpg/data/"
+#    override-stage: |
+#      echo datarootdir
+#      cp -dRf $SNAPCRAFT_PART_SRC/data $SNAPCRAFT_STAGE/usr/local/bin
+#      mkdir -p $SNAPCRAFT_PART_INSTALL/usr/local/include/freedroidrpg
+#      cp -dRf $SNAPCRAFT_PART_SRC/data $SNAPCRAFT_PART_INSTALL/usr/local/include
+#      intentional_crash
+#      snapcraftctl stage
+# # This probably won't be necessary in the end. But the game must be able to run before one can test.
+# plugs:
+#   config-savefiles:
+#     interface: personal-files
+#     write:
+#       - $HOME/.freedroid_rpg
+apps:
+  freedroidrpg:
+    command: usr/local/bin/freedroidRPG
+    # command: $SNAP/usr/local/bin/freedroidRPG
+    plugs:
+      # - config-savefiles
+      # - personal-files
+      - desktop
+      - desktop-legacy
+      - x11
+      - unity7
+      - wayland
+      - opengl
+      - audio-playback
